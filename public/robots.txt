@@ -1,0 +1,6 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Sitemaps (opcional, si tuvieras uno)
+# Sitemap: https://tudominio.com/sitemap.xml

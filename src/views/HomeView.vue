@@ -8,7 +8,7 @@
 
     <!-- Manejo de Errores -->
     <div v-else-if="error" class="error-container glass-card">
-      <AlertCircle :size="48" color="#f87171" />
+      <AlertCircle :size="48" color="#ff8a8a" />
       <h2>¡Ups! Algo salió mal</h2>
       <p>{{ error }}</p>
       <button @click="getLocation" class="retry-btn">Reintentar Acceso</button>
@@ -193,7 +193,13 @@ onMounted(getLocation);
 .home {
   max-width: 1100px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 1rem 0.5rem;
+}
+
+@media (min-width: 768px) {
+  .home {
+    padding: 2rem 1rem;
+  }
 }
 
 .home-container {
@@ -204,18 +210,34 @@ onMounted(getLocation);
 
 /* Bloque Principal */
 .main-display {
-  padding: 3rem;
+  padding: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .main-display {
+    padding: 3rem;
+  }
 }
 
 .display-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 3rem;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .display-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 3rem;
+  }
 }
 
 .geo-badge {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.6);
   padding: 0.5rem 1rem;
   border-radius: 30px;
   font-size: 0.8rem;
@@ -224,9 +246,10 @@ onMounted(getLocation);
   align-items: center;
   gap: 0.5rem;
   margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.city-title { font-size: 3rem; margin: 0; font-weight: 900; line-height: 1; letter-spacing: -2px; }
+.city-title { font-size: clamp(2rem, 8vw, 3rem); margin: 0; font-weight: 900; line-height: 1; letter-spacing: -2px; color: white; }
 .current-date { font-size: 1.1rem; color: rgba(255, 255, 255, 0.5); text-transform: capitalize; margin-top: 0.5rem; }
 
 .weather-badge {
@@ -238,45 +261,67 @@ onMounted(getLocation);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 1px;
+  width: fit-content;
 }
 
 /* Hero Section */
 .hero-temp {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  gap: 1rem;
 }
-.temp-number { font-size: 10rem; font-weight: 900; line-height: 0.8; letter-spacing: -6px; }
+
+@media (min-width: 768px) {
+  .hero-temp {
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    gap: 2rem;
+  }
+}
+
+.temp-number { font-size: clamp(5rem, 20vw, 10rem); font-weight: 900; line-height: 0.8; letter-spacing: -6px; color: white; }
 .hero-condition { display: flex; flex-direction: column; align-items: center; }
-.hero-condition img { width: 220px; height: 220px; margin: -40px 0; }
-.condition-text { font-size: 1.6rem; font-weight: 600; text-transform: capitalize; opacity: 0.9; }
+.hero-condition img { width: clamp(120px, 30vw, 220px); height: auto; margin: -40px 0; }
+.condition-text { font-size: clamp(1.2rem, 4vw, 1.6rem); font-weight: 600; text-transform: capitalize; color: rgba(255, 255, 255, 0.9); }
 
 .hero-metrics {
   display: flex;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.03);
   border-radius: 24px;
-  padding: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  justify-content: space-around;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .hero-metrics {
+    padding: 2rem;
+    justify-content: space-around;
+  }
 }
 .metric-item { display: flex; align-items: center; gap: 1.5rem; }
 .m-icon { color: #60a5fa; }
 .m-data { display: flex; flex-direction: column; }
 .m-label { font-size: 0.85rem; color: rgba(255, 255, 255, 0.4); text-transform: uppercase; letter-spacing: 1px; }
-.m-value { font-size: 1.5rem; font-weight: 700; }
+.m-value { font-size: 1.5rem; font-weight: 700; color: white; }
 .metric-divider { width: 1px; height: 40px; background: rgba(255, 255, 255, 0.1); }
+
+@media (max-width: 600px) {
+  .metric-divider { display: none; }
+  .hero-metrics { justify-content: center; }
+}
 
 /* Grid Técnico (Mejorado) */
 .technical-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
-}
-
-@media (max-width: 900px) {
-  .technical-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 .tech-card {
@@ -286,25 +331,25 @@ onMounted(getLocation);
   gap: 1.2rem;
   transition: transform 0.3s;
 }
-.tech-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.12); }
+.tech-card:hover { transform: translateY(-5px); background: rgba(255, 255, 255, 0.08); }
 .tech-icon { width: 50px; height: 50px; border-radius: 12px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; color: #93c5fd; }
-.sunrise-icon { color: #fbbf24; }
-.sunset-icon { color: #f87171; }
+.sunrise-icon { color: #fde047; }
+.sunset-icon { color: #ff8a8a; }
 .tech-label { font-size: 0.85rem; color: rgba(255, 255, 255, 0.5); display: block; margin-bottom: 0.3rem; }
-.tech-value { font-size: 1.5rem; font-weight: 700; }
+.tech-value { font-size: 1.5rem; font-weight: 700; color: white; }
 
 /* Timeline */
 .timeline-container {
   padding: 2.5rem;
 }
-.section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 2rem; opacity: 0.6; }
+.section-header { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.5); }
 .section-header h3 { font-size: 1.1rem; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
 .timeline-scroll { display: flex; gap: 3rem; overflow-x: auto; padding-bottom: 1.5rem; }
 .timeline-scroll::-webkit-scrollbar { height: 4px; }
 .timeline-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 10px; }
 .timeline-slot { display: flex; flex-direction: column; align-items: center; min-width: 80px; position: relative; }
-.slot-time { font-size: 0.9rem; opacity: 0.5; margin-bottom: 0.5rem; }
-.slot-temp { font-weight: 800; font-size: 1.4rem; }
+.slot-time { font-size: 0.9rem; color: rgba(255, 255, 255, 0.4); margin-bottom: 0.5rem; }
+.slot-temp { font-weight: 800; font-size: 1.4rem; color: white; }
 .slot-pop { font-size: 0.7rem; color: #60a5fa; font-weight: 700; display: flex; align-items: center; gap: 2px; margin-top: 0.4rem; }
 
 /* Footer & API Status */
@@ -318,7 +363,7 @@ onMounted(getLocation);
   align-items: center;
   gap: 0.6rem;
   font-size: 0.75rem;
-  opacity: 0.4;
+  color: rgba(255, 255, 255, 0.4);
 }
 .status-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 5px #22c55e; }
 

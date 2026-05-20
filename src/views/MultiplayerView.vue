@@ -89,7 +89,7 @@
               <!-- PANTALLA DE FIN DE JUEGO -->
               <div v-else-if="game.gameState === 'gameOver'" key="gameover" class="card-content final-content">
                 <div class="crown-box">
-                  <Trophy :size="80" color="#fbbf24" />
+                  <Trophy :size="80" color="#fde047" />
                 </div>
                 <h1 class="final-title">{{ gameOverTitle }}</h1>
                 
@@ -298,13 +298,44 @@ onMounted(() => {
   transition: border-color 0.5s;
 }
 
+/* Tablero Principal */
+.game-board {
+  min-height: 400px;
+  display: flex;
+}
+
+@media (min-width: 900px) {
+  .game-board {
+    height: 650px;
+  }
+}
+
+.game-card {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.5s;
+  padding: 2rem 1rem;
+}
+
 .card-fixed-boundary {
   width: 100%;
   max-width: 600px;
-  min-height: 550px;
+  min-height: 400px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .card-fixed-boundary {
+    min-height: 550px;
+  }
 }
 
 .card-content {
@@ -313,8 +344,14 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   text-align: center;
+}
+
+@media (min-width: 640px) {
+  .card-content {
+    gap: 2rem;
+  }
 }
 
 .round-indicator {
@@ -322,20 +359,26 @@ onMounted(() => {
   padding: 0.5rem 1.2rem;
   border-radius: 20px;
   font-weight: 700;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
+@media (min-width: 640px) {
+  .round-indicator {
+    font-size: 0.9rem;
+  }
+}
+
 .city-info .globe-icon { color: #3b82f6; margin-bottom: 1rem; }
 .city-info .question { font-size: 1.1rem; opacity: 0.5; margin-bottom: 0.5rem; }
-.city-name { font-size: 4.5rem; font-weight: 900; margin: 0; line-height: 1; letter-spacing: -2px; }
+.city-name { font-size: clamp(2rem, 8vw, 4.5rem); font-weight: 900; margin: 0; line-height: 1; letter-spacing: -2px; }
 
 .player-badge {
   padding: 0.8rem 2rem;
   border-radius: 12px;
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 4vw, 1.2rem);
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid transparent;
 }
@@ -355,10 +398,10 @@ onMounted(() => {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  width: 200px;
-  height: 120px;
+  width: clamp(140px, 35vw, 200px);
+  height: clamp(90px, 25vw, 120px);
   text-align: center;
-  font-size: 5rem;
+  font-size: clamp(2.5rem, 10vw, 5rem);
   font-weight: 900;
   color: white;
   outline: none;
@@ -369,8 +412,8 @@ onMounted(() => {
 
 .celsius-mark { 
   position: absolute; 
-  left: calc(50% + 110px);
-  font-size: 2rem; 
+  left: calc(50% + clamp(75px, 18vw, 110px));
+  font-size: clamp(1.2rem, 4vw, 2rem); 
   font-weight: 700; 
   opacity: 0.4; 
 }
@@ -379,12 +422,19 @@ onMounted(() => {
   background: white;
   color: #1e3a8a;
   border: none;
-  padding: 1.2rem 3rem;
+  padding: 1rem 2rem;
   border-radius: 16px;
   font-size: 1.1rem;
   font-weight: 800;
   cursor: pointer;
   transition: all 0.2s;
+  width: fit-content;
+}
+
+@media (min-width: 640px) {
+  .primary-btn {
+    padding: 1.2rem 3rem;
+  }
 }
 
 /* Resultados */
@@ -394,30 +444,45 @@ onMounted(() => {
   gap: 0.2rem;
 }
 .real-temp-display .label { font-size: 0.9rem; opacity: 0.6; }
-.real-temp-display .value { font-size: 4rem; font-weight: 900; color: #fbbf24; }
+.real-temp-display .value { font-size: clamp(2.5rem, 8vw, 4rem); font-weight: 900; color: #fde047; }
 
 .players-comparison {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1rem;
   width: 100%;
   justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media (min-width: 640px) {
+  .players-comparison {
+    gap: 2rem;
+  }
 }
 
 .player-result-card {
   background: rgba(255, 255, 255, 0.05);
-  padding: 1.5rem;
+  padding: 0.8rem;
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  min-width: 140px;
+  gap: 0.4rem;
+  min-width: 110px;
   border: 2px solid transparent;
   position: relative;
 }
 
+@media (min-width: 640px) {
+  .player-result-card {
+    padding: 1.5rem;
+    min-width: 140px;
+    gap: 0.5rem;
+  }
+}
+
 .player-result-card.is-winner {
-  border-color: #fbbf24;
+  border-color: #fde047;
   background: rgba(251, 191, 36, 0.1);
 }
 
@@ -425,28 +490,28 @@ onMounted(() => {
   position: absolute;
   top: -10px;
   right: -10px;
-  background: #fbbf24;
+  background: #fde047;
   color: #1e3a8a;
   padding: 4px;
   border-radius: 50%;
 }
 
-.p-name { font-weight: 800; opacity: 0.7; }
-.p-guess { font-size: 2.2rem; font-weight: 900; }
-.p-diff { font-size: 0.9rem; font-weight: 700; color: #60a5fa; }
+.p-name { font-weight: 800; opacity: 0.7; font-size: 0.9rem; }
+.p-guess { font-size: clamp(1.5rem, 5vw, 2.2rem); font-weight: 900; }
+.p-diff { font-size: 0.8rem; font-weight: 700; color: #60a5fa; }
 
 .vs-divider {
   font-weight: 900;
   font-style: italic;
   opacity: 0.3;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .next-btn {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1rem 2rem;
+  padding: 0.8rem 1.5rem;
   border-radius: 14px;
   font-weight: 700;
   display: flex;
@@ -455,31 +520,53 @@ onMounted(() => {
   cursor: pointer;
 }
 
+@media (min-width: 640px) {
+  .next-btn {
+    padding: 1rem 2rem;
+  }
+}
+
 /* GameOver */
-.final-title { font-size: 3.5rem; font-weight: 900; margin: 0; }
+.final-title { font-size: clamp(1.8rem, 7vw, 3.5rem); font-weight: 900; margin: 0; }
 .final-score-board {
   display: flex;
-  gap: 3rem;
+  gap: 2rem;
   margin: 1rem 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
+
+@media (min-width: 640px) {
+  .final-score-board {
+    gap: 3rem;
+  }
+}
+
 .final-player-stat {
   display: flex;
   flex-direction: column;
 }
-.final-player-stat .name { font-weight: 700; opacity: 0.6; }
-.final-player-stat .wins { font-size: 2.5rem; font-weight: 900; }
+.final-player-stat .name { font-weight: 700; opacity: 0.6; font-size: 0.9rem; }
+.final-player-stat .wins { font-size: clamp(1.8rem, 6vw, 2.5rem); font-weight: 900; }
 
 .restart-btn {
   background: #3b82f6;
   color: white;
   border: none;
-  padding: 1.2rem 3rem;
+  padding: 1rem 2rem;
   border-radius: 16px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 800;
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .restart-btn {
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+  }
 }
 
 /* Sidebar */
@@ -496,7 +583,13 @@ onMounted(() => {
 }
 .p-score-item.p1 { border-left: 4px solid #3b82f6; }
 .p-score-item.p2 { border-left: 4px solid #ec4899; }
-.p-val { font-size: 2rem; font-weight: 900; }
+.p-val { font-size: 1.8rem; font-weight: 900; }
+
+@media (min-width: 640px) {
+  .p-val {
+    font-size: 2rem;
+  }
+}
 
 .sidebar-actions {
   display: flex;
@@ -519,27 +612,29 @@ onMounted(() => {
 }
 
 .help-btn {
-  background: rgba(59, 130, 246, 0.1);
-  color: #60a5fa;
-  border-color: rgba(59, 130, 246, 0.2);
+  background: #3b82f6;
+  color: white;
+  border-color: #60a5fa;
 }
 
 .help-btn:hover {
-  background: rgba(59, 130, 246, 0.2);
+  background: #2563eb;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .reset-btn {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   color: white;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .reset-btn:hover {
-  background: rgba(248, 113, 113, 0.1);
-  color: #f87171;
-  border-color: rgba(248, 113, 113, 0.2);
+  background: #ef4444;
+  color: white;
+  border-color: #f87171;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
 .info-card { padding: 1.5rem; text-align: left; }
@@ -582,7 +677,7 @@ onMounted(() => {
 
 .score-item.perfect { border-left-color: #4ade80; }
 .score-item.near { border-left-color: #60a5fa; }
-.score-item.warm { border-left-color: #fbbf24; }
+.score-item.warm { border-left-color: #fde047; }
 .score-item.cold { border-left-color: #f87171; }
 
 .modal-confirm-btn {

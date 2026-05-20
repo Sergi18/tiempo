@@ -241,8 +241,14 @@ onMounted(() => {
 
 /* Tablero Principal */
 .game-board {
-  height: 650px;
+  min-height: 400px;
   display: flex;
+}
+
+@media (min-width: 900px) {
+  .game-board {
+    height: 650px;
+  }
 }
 
 .game-card {
@@ -255,15 +261,22 @@ onMounted(() => {
   position: relative;
   overflow: hidden;
   transition: border-color 0.5s;
+  padding: 2rem 1rem;
 }
 
 .card-fixed-boundary {
   width: 100%;
   max-width: 600px;
-  min-height: 550px;
+  min-height: 350px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .card-fixed-boundary {
+    min-height: 550px;
+  }
 }
 
 .card-content {
@@ -272,13 +285,19 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   text-align: center;
 }
 
-.city-info .globe-icon { color: #3b82f6; margin-bottom: 1.5rem; }
+@media (min-width: 640px) {
+  .card-content {
+    gap: 2rem;
+  }
+}
+
+.city-info .globe-icon { color: #60a5fa; margin-bottom: 1rem; }
 .city-info .question { font-size: 1.2rem; opacity: 0.5; margin-bottom: 0.5rem; }
-.city-name { font-size: 5.5rem; font-weight: 900; margin: 0; line-height: 1; letter-spacing: -3px; }
+.city-name { font-size: clamp(2.5rem, 10vw, 5.5rem); font-weight: 900; margin: 0; line-height: 1; letter-spacing: -3px; }
 
 .guess-input-group {
   position: relative;
@@ -292,10 +311,10 @@ onMounted(() => {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  width: 220px;
-  height: 150px;
+  width: clamp(140px, 40vw, 220px);
+  height: clamp(90px, 30vw, 150px);
   text-align: center;
-  font-size: 6rem;
+  font-size: clamp(3rem, 12vw, 6rem);
   font-weight: 900;
   color: white;
   outline: none;
@@ -307,8 +326,8 @@ onMounted(() => {
 
 .celsius-mark { 
   position: absolute; 
-  left: calc(50% + 115px);
-  font-size: 2.5rem; 
+  left: calc(50% + clamp(75px, 20vw, 115px));
+  font-size: clamp(1.2rem, 5vw, 2.5rem); 
   font-weight: 700; 
   opacity: 0.4; 
 }
@@ -317,30 +336,58 @@ onMounted(() => {
   background: white;
   color: #1e3a8a;
   border: none;
-  padding: 1.2rem 3rem;
+  padding: 1rem 2rem;
   border-radius: 16px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 800;
   cursor: pointer;
   transition: transform 0.2s, box-shadow 0.2s;
+  width: fit-content;
+}
+
+@media (min-width: 640px) {
+  .primary-btn {
+    padding: 1.2rem 3rem;
+    font-size: 1.2rem;
+  }
 }
 .primary-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
 
 /* Resultados */
 .status-icon-box {
-  width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.1); margin-bottom: 1rem;
+  width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.1); margin-bottom: 1rem;
 }
-.stats-comparison { display: flex; gap: 4rem; }
+
+@media (min-width: 640px) {
+  .status-icon-box {
+    width: 100px; height: 100px;
+  }
+}
+
+.stats-comparison { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; }
+
+@media (min-width: 640px) {
+  .stats-comparison {
+    gap: 4rem;
+  }
+}
+
 .stat-pill .label { font-size: 0.9rem; opacity: 0.5; margin-bottom: 0.5rem; display: block; }
-.stat-pill .value { font-size: 3.5rem; font-weight: 900; }
-.stat-pill.highlight { color: #fbbf24; }
-.diff-text { font-size: 1.3rem; opacity: 0.8; }
+.stat-pill .value { font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 900; }
+.stat-pill.highlight { color: #fde047; }
+.diff-text { font-size: 1.1rem; opacity: 0.8; }
+
+@media (min-width: 640px) {
+  .diff-text {
+    font-size: 1.3rem;
+  }
+}
 
 .next-btn {
   background: rgba(255, 255, 255, 0.1);
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 1.2rem 2.5rem;
+  padding: 1rem 2rem;
   border-radius: 14px;
   font-weight: 700;
   display: flex;
@@ -351,9 +398,16 @@ onMounted(() => {
 
 /* Sidebar */
 .game-sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
-.score-card { padding: 2.5rem; display: flex; align-items: center; gap: 1.5rem; }
-.trophy-icon { color: #fbbf24; }
-.score-info .value { font-size: 3.5rem; font-weight: 900; line-height: 1; }
+.score-card { padding: 1.5rem; display: flex; align-items: center; gap: 1.5rem; }
+
+@media (min-width: 640px) {
+  .score-card {
+    padding: 2.5rem;
+  }
+}
+
+.trophy-icon { color: #fde047; }
+.score-info .value { font-size: clamp(2.5rem, 10vw, 3.5rem); font-weight: 900; line-height: 1; }
 
 .sidebar-actions {
   display: flex;
@@ -376,27 +430,29 @@ onMounted(() => {
 }
 
 .help-btn {
-  background: rgba(59, 130, 246, 0.1);
-  color: #60a5fa;
-  border-color: rgba(59, 130, 246, 0.2);
+  background: #3b82f6;
+  color: white;
+  border-color: #60a5fa;
 }
 
 .help-btn:hover {
-  background: rgba(59, 130, 246, 0.2);
+  background: #2563eb;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
 }
 
 .reset-btn {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.1);
   color: white;
+  border-color: rgba(255, 255, 255, 0.2);
 }
 
 .reset-btn:hover {
-  background: rgba(248, 113, 113, 0.1);
-  color: #f87171;
-  border-color: rgba(248, 113, 113, 0.2);
+  background: #ef4444;
+  color: white;
+  border-color: #f87171;
   transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
 }
 
 .tips-card { padding: 2rem; display: flex; flex-direction: column; gap: 1rem; min-height: 160px; }

@@ -38,8 +38,8 @@ Sigue estos pasos para ejecutar el proyecto localmente:
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone https://github.com/tu-usuario/weather-app.git
-   cd weather-app
+   git clone [URL-DE-TU-REPOSITORIO]
+   cd [NOMBRE-DE-LA-CARPETA]
    ```
 
 2. **Instalar dependencias:**
